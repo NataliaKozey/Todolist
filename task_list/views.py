@@ -1,18 +1,14 @@
 from forms import TodolistForm, CategoryForm
 from task_list.models import Category, Todolist
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response, redirect, render
 from django.core.paginator import Paginator
 from django.template import RequestContext
 from django.contrib import auth
-from django.views.decorators import csrf
+from django.views.decorators.csrf import csrf_protect
 from django.http import Http404, HttpResponseNotFound, HttpResponse
 import datetime
 
-
-
-
-
-
+@csrf_protect
 def done(request, TO_DO_LIST_id):
     # if request.method == "POST" and "Done" in request.POST:
     #     args = {}
@@ -74,6 +70,7 @@ def todo(request, TO_DO_LIST_id):
 
 
 #     return redirect('/')
+@csrf_protect
 def addnew(request, TO_DO_LIST_id=1):
 
     todolist_form = TodolistForm
@@ -83,8 +80,9 @@ def addnew(request, TO_DO_LIST_id=1):
     args['todolist_date_published'] = datetime.datetime.now()
     
     args['form']= todolist_form
-    return render_to_response('addnew.html', args, RequestContext(request))
+    return render(request, 'addnew.html', args)
 
+@csrf_protect
 def savetodolist(request):
     todolist_form = TodolistForm
     args = {}
@@ -105,7 +103,7 @@ def savetodolist(request):
 
 
 
-
+@csrf_protect
 def new_category(request):
     my_new_category = CategoryForm
     args = {}
