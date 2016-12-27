@@ -1,9 +1,11 @@
-from django.conf.urls import include, url
-from views import login, logout, register
+from django.conf.urls import patterns, include, url
 
-urlpatterns = [
-    url(r'^login/$', login),
-    url(r'^logout/$', logout),
-    url(r'^register/$', register),
-]
 
+urlpatterns = patterns('',
+
+    url(r'^login/$', 'loginsys.views.login'),
+    url(r'^logout/$', 'loginsys.views.logout'),
+    url(r'^register/$', 'loginsys.views.register'),
+
+
+)
