@@ -1,7 +1,7 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 
 
-urlpatterns = patterns('',
+urlpatterns = [
 
     url(r'^todolist/get/(?P<TO_DO_LIST_id>\d+)/$', 'task_list.views.todo'),
     url(r'^$', 'task_list.views.todolist'),
@@ -18,4 +18,4 @@ urlpatterns = patterns('',
 
     url(r'^todolist/add_category/save_category/$', 'task_list.views.save_category'),
 
-)
+]
