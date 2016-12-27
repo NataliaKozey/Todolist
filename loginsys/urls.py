@@ -1,5 +1,5 @@
 from django.conf.urls import include, url
-from loginsys.views import login, logout, register
+from views import login, logout, register
 
 urlpatterns = [
     url(r'^login/$', login),

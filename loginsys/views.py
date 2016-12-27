@@ -1,11 +1,11 @@
 from django.shortcuts import render_to_response, redirect
 from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm
-from django.core.context_processors import csrf
+from django.views.decorators import csrf
 
 def login(request):
     args = {}
-    args.update(csrf(request))
+    #args.update(csrf(request))
     if request.POST:
         username = request.POST.get('username', '')
         password = request.POST.get('password', '')

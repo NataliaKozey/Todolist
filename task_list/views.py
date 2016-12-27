@@ -4,7 +4,7 @@ from django.shortcuts import render_to_response, redirect
 from django.core.paginator import Paginator
 from django.template import RequestContext
 from django.contrib import auth
-from django.core.context_processors import csrf
+from django.views.decorators import csrf
 from django.http import Http404, HttpResponseNotFound, HttpResponse
 import datetime
 
@@ -78,7 +78,7 @@ def addnew(request, TO_DO_LIST_id=1):
 
     todolist_form = TodolistForm
     args = {}
-    args.update(csrf(request))
+    #args.update(csrf(request))
     args['todolist_user'] = request.user
     args['todolist_date_published'] = datetime.datetime.now()
     
@@ -88,7 +88,7 @@ def addnew(request, TO_DO_LIST_id=1):
 def savetodolist(request):
     todolist_form = TodolistForm
     args = {}
-    args.update(csrf(request))
+    #args.update(csrf(request))
     args['todolist_user'] = request.user
     args['todolist_date_published'] = datetime.datetime.now()
     
@@ -109,7 +109,7 @@ def savetodolist(request):
 def new_category(request):
     my_new_category = CategoryForm
     args = {}
-    args.update(csrf(request))
+    #args.update(csrf(request))
     args['user'] = request.user
 
     args['forms']= my_new_category

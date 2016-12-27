@@ -1,5 +1,5 @@
 from django.conf.urls import include, url
-from task_list.views import *
+from views import *
 
 
 urlpatterns = [
