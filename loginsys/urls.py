@@ -1,9 +1,9 @@
 from django.conf.urls import include, url
-
+from loginsys.views import login, logout, register
 
 urlpatterns = [
-    url(r'^login/$', 'loginsys.views.login'),
-    url(r'^logout/$', 'loginsys.views.logout'),
-    url(r'^register/$', 'loginsys.views.register'),
+    url(r'^login/$', login),
+    url(r'^logout/$', logout),
+    url(r'^register/$', register),
 ]
 
