@@ -1,0 +1,178 @@
+
+<!DOCTYPE html >
+{% load staticfiles %}
+<html>
+<head>
+
+    <title>ToDo-list manager</title>
+    <link rel='stylesheet' type='text/css' href="{% static 'css/bootstrap.min.css' %}">
+    <link rel='stylesheet' type='text/css' href="{% static 'css/styles.css' %}">
+      <script type="text/javascript" src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+ <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+ <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+ <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
+ <script type="text/javascript" src="{% static 'js/angular.min.js' %}"></script>
+
+</head>
+<body>
+<header>
+        <nav id="header-nav" class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    
+                        <a href="/" class="pull-left visible-md visible-lg">
+                        <div id="logo-img"></div>
+                        </a>
+
+                      <div class="navbar-brand">
+                        <a href="/"><h1>To Do List</h1></a>
+                        <p>
+                          
+                          <span>by Natalia Kozey</span>
+                        </p>
+                      </div>
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable-nav" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                </div>
+                <div id="collapsable-nav" class="collapse navbar-collapse">
+                   <ul id="nav-list" class="nav navbar-nav navbar-right">
+                    <li>
+                      <a href="/todolist/addnew/">
+                        <span class="glyphicon glyphicon-plus"></span><br class="hidden-xs"> Add task </a>
+                    </li>
+                    <li>
+                      
+                    {%if username %}
+                      <li><a href="auth/logout">
+                        <span class="glyphicon glyphicon-log-out"></span><br class="hidden-xs">logout({{username}}) </a></li>
+                    {%else%}
+                        <li><a href="auth/login" data-toggle="modal" data-target="#login-modal">
+                        <span class="glyphicon glyphicon-log-in"></span><br class="hidden-xs">Login</a></li>
+                        {%endif%}
+                    </li>
+                    <li>
+                      <a href="/page/1/">
+                        <span class="glyphicon glyphicon-tasks"></span><br class="hidden-xs"> All list</a>
+                    </li>
+                    
+                  </ul><!-- #nav-list -->
+                </div><!-- .collapse .navbar-collapse -->
+            </div>
+        </nav>
+    </header>
+    <div id="main-content" class="container">
+        {%block login%}{%endblock%}
+        {%block register%}{%endblock%}
+        {%block addnew%}{%endblock%}
+        {%if username%}
+        
+        {% for one in todolist %}
+        <ul class="list-group" ng-show="one.length > 0">
+          <li class="list-group-item clearfix task" ng-repeat="one in todolist" ng-class="{disabled: one.todolist_done}"> 
+            {%if one.todolist_done %}
+            <p class="lead-done">{{one.todolist_list}}</p>
+            <p class="lead-done">{{one.todolist_category}}</p>
+            <p class="lead-done">{{one.todolist_date_published}}</p>
+            {%else%}
+            <p class="lead">{{one.todolist_list}}</p>
+            <p class="lead">{{one.todolist_category}}</p>
+            <p class="lead">{{one.todolist_date_published}}</p>
+            {%endif%}
+            <div>
+              <span class="pull-right">
+                <ul>
+                {%if one.todolist_done %}
+                <li><a href="todolist/done/{{one.id}}">
+                <button class="btn btn-primary btn-xs" ng-show="one.done"><span class="glyphicon glyphicon-repeat" 
+                  ng-click=""></span></button></a></li>
+                  {%else%}
+                <li><a href="todolist/done/{{one.id}}"><button class="btn btn-primary btn-xs" ng-show="!one.done"><span class="glyphicon glyphicon-ok" 
+                  ng-click="todolist/done/{{one.id}}"></span></button></a></li>
+                  {%endif%}
+                <li><a href="todolist/delete_confirm/{{one.id}}"><button class="btn btn-danger btn-xs" action = "delete_confirm/{{one.id}}/" method = "post"><span class="glyphicon glyphicon-remove" 
+                  ></span></button></a></li>
+                </ul>
+              </span>
+            </div>
+          </li>
+        </ul>
+        {%endfor%}
+         {%else%}
+        <div id = "text_info" class='row'>
+          <div class = "col-md-4 col-sm-6 col-xs-12">
+          One of the most important reasons for keeping a to-do list is the organization. Organizing your tasks with a list can make everything much more manageable and make you feel grounded. Seeing a clear outline of your completed and uncompleted tasks will help you feel organized and stay mentally focused.Feeling forgetful? 
+          
+          </div>
+          <div class = "col-md-4 col-sm-6 col-xs-12">
+          To-do lists are a useful external memory aid that give you permission to forget. As long as you can remember to look at your to-do list, you will never lose anything that you have recorded on it. Without some sort of external memory aid, we are guaranteed to forget things due to the nature of our short-term memories. 
+
+          </div>
+          <div class = "col-md-4 col-sm-12 col-xs-12">
+          The average person's short-term memory can only hold 7 pieces of information for about 30 seconds.If you have more than 7 tasks that you need to remember, you are already setup for failure. Keeping a to-do list will allow you to effortlessly keep track of everything that you need to do. &copy; Copyright www.toodledo.com
+          </div>
+         {%endif%}     
+        
+        
+
+            {%if todolist%}
+            <div class='large-3 large-offset-5 columns'>
+                <ul class='pagination'>
+                    {% if todolist.has_previous%}
+                    <li class='arrow'><a href="/page/{{todolist.previous_page_number}}/">&laquo;</a></li>
+                    {%else%}
+                    <li class='arrow unavailable'><a href="">&laquo;</a></li>
+                    {%endif%}
+                    {%for page in todolist.paginator.page_range%}
+                    {%if page == todolist.number%}
+                    <li class="current"><a href="/page/{{page}}/">{{page}}</a></li>
+                    {%else%}
+                    <li><a href="/page/{{page}}/">{{page}}</a></li>
+                    {%endif%}
+                    {%endfor%}
+                    {%if todolist.has_next%}
+                    <li class="arrow"><a href="/page/{{todolist.next_page_number}}/">&raquo;</a></li>
+                    {%else%}
+                    <li class='arrow unavailable'><a href="">&raquo;</a></li>
+                    {%endif%}
+                </ul>
+            </div>
+            {%endif%}
+        </div>
+
+  </div>
+  
+
+
+  <footer class="panel-footer">
+    <div class="container">
+      <div class="row">
+        <section id="hours" class="col-sm-4">
+          <span>My number</span><br>
+          0-93-69-08-45-1
+          <span>Address:</span><br>
+          Chernigiv
+          <hr class="visible-xs">
+        </section>
+        <section id="address" class="col-sm-4">
+          
+          <span>"Do anything with todolist"</span>
+          <hr class="visible-xs">
+        </section>
+        <section id="testimonials" class="col-sm-4">
+          <p>"Organize your day, work, life."</p>
+          
+        </section>
+      </div>
+      <div class="text-center">Natalia Kozey</div>
+    </div>
+  </footer>
+
+  <!-- <script src="js/jquery-2.1.4.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/script.js"></script> -->
+</body>
+</html>

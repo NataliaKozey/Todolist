@@ -1,0 +1,29 @@
+{%extends 'main.html' %}
+{% load staticfiles %}
+{%block login%}
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="loginmodal-container">
+                <h1>Please enter your username and password</h1>
+                <form action='/auth/login/' method='post'>
+                {%csrf_token%}
+                    <laben for='username'>user name</laben>
+                    <input type="text" name="username" placeholder="Username" id='username'>
+                    <laben for='password'>password</laben>
+                    <input type="password" name="password" placeholder="Password" id='password'>
+                    
+                    {%if login_error%}
+                    <label class='error'>{{login_error}}</label>
+                    {%endif%}
+                     <input class='btn btn-default' type='submit' value="Login">
+                </form>
+                        
+            <div class="login-help">
+                <a href="/auth/register/">Register</a>
+            </div>
+            </div>
+        </div>
+    </div>
+        
+    </div>
+{%endblock%}

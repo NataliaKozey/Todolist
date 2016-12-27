@@ -1,0 +1,113 @@
+
+<!DOCTYPE html >
+{% load staticfiles %}
+<html>
+<head>
+
+    <title>ToDo-list manager</title>
+    <link rel='stylesheet' type='text/css' href="{% static 'css/bootstrap.min.css' %}">
+    <link rel='stylesheet' type='text/css' href="{% static 'css/styles.css' %}">
+      <script type="text/javascript" src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
+ <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+ <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+ <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
+ <script type="text/javascript" src="{% static 'js/angular.min.js' %}"></script>
+
+</head>
+<body>
+<header>
+        <nav id="header-nav" class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    
+                        <a href="/" class="pull-left visible-md visible-lg">
+                        <div id="logo-img"></div>
+                        </a>
+
+                      <div class="navbar-brand">
+                        <a href="/"><h1>To Do List</h1></a>
+                        <p>
+                          
+                          <span>by Natalia Kozey</span>
+                        </p>
+                      </div>
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapsable-nav" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                </div>
+                <div id="collapsable-nav" class="collapse navbar-collapse">
+                   <ul id="nav-list" class="nav navbar-nav navbar-right">
+                    <li>
+                      <a href="/todolist/addnew/">
+                        <span class="glyphicon glyphicon-plus"></span><br class="hidden-xs"> Add task </a>
+                    </li>
+                    <li>
+                      
+                    {%if username %}
+                      <li><a href="auth/logout">
+                        <span class="glyphicon glyphicon-log-out"></span><br class="hidden-xs">logout({{username}}) </a></li>
+                    {%else%}
+                        <li><a href="auth/login" data-toggle="modal" data-target="#login-modal">
+                        <span class="glyphicon glyphicon-log-in"></span><br class="hidden-xs">Login</a></li>
+                        {%endif%}
+                    </li>
+                    <li>
+                      <a href="/page/1/">
+                        <span class="glyphicon glyphicon-tasks"></span><br class="hidden-xs"> All list</a>
+                    </li>
+                    
+                  </ul><!-- #nav-list -->
+                </div><!-- .collapse .navbar-collapse -->
+            </div>
+        </nav>
+    </header>
+    <div id="main-content" class="container">
+        <div class="form-group" id="register">
+            <div class="col-md-4"> 
+            <form id="register_form" action='/auth/register/' method='post' >
+                {%csrf_token%}
+                {{form}}
+            <button type="submit" class="btn btn-default" id="register_btn">Register</button>
+                <!-- <input class='button' type='submit' value='Register'> -->
+            </form>
+            </div>
+
+        </div>
+
+  </div>
+  
+
+
+  <footer class="panel-footer">
+    <div class="container">
+      <div class="row">
+        <section id="hours" class="col-sm-4">
+          <span>My number</span><br>
+          0-93-69-08-45-1
+          <span>Address:</span><br>
+          Chernigiv
+          <hr class="visible-xs">
+        </section>
+        <section id="address" class="col-sm-4">
+          
+          <span>"Do anything with todolist"</span>
+          <hr class="visible-xs">
+        </section>
+        <section id="testimonials" class="col-sm-4">
+          <p>"Organize your day, work, life."</p>
+          
+        </section>
+      </div>
+      <div class="text-center">Natalia Kozey</div>
+    </div>
+  </footer>
+
+  <!-- <script src="js/jquery-2.1.4.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/script.js"></script> -->
+</body>
+</html>
+
