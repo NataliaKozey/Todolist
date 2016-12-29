@@ -1,5 +1,5 @@
 from django.conf.urls import include, url
-from . import views
+from loginsys import views
 
 urlpatterns =   [  
 

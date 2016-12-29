@@ -1,4 +1,4 @@
-from forms import TodolistForm, CategoryForm
+from task_list.forms import TodolistForm, CategoryForm
 from task_list.models import Category, Todolist
 from django.shortcuts import render_to_response, redirect, render
 from django.core.paginator import Paginator
