@@ -28,4 +28,4 @@ class CategoryForm(ModelForm):
     class Meta:
         model=Category
 
-    fields=['group_todolist']
+        fields=['group_todolist']
